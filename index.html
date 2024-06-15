@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Stop watch</title>
+  </head>
+  <body>
+    <section>
+      <p id="countDown"></p>
+      <div class="buttons">
+        <button class="start-btn">Start</button>
+        <button class="reset-btn">Reset</button>
+        <button class="stop-btn">Stop</button>
+        <button class="time-btn">Get Time</button>
+        <button class="clear-btn">Clear Time</button>
+      </div>
+      <div class="resetValue"></div>
+    </section>
+    <script>
+      const countDownValue = document.getElementById("countDown");
+      const resetValue = document.querySelector(".resetValue");
+      let startCount = 0;
+      let interValId;
+
+      const startTimer = () => {
+        interValId = setInterval(() => {
+          countDownValue.innerHTML = startCount++;
+        }, 1000);
+      };
+
+      const stopTimer = () => {
+        showStopValue();
+        clearInterval(interValId);
+      };
+
+      const resetTimer = () => {
+        startCount = 0;
+        countDownValue.innerHTML = startCount;
+      };
+
+      const showStopValue = () => {
+        const newPara = document.createElement("p");
+        newPara.innerHTML = `The stop time is ${startCount - 1}`;
+        resetValue.append(newPara);
+      };
+
+      const clearTimeValue = () => {
+        resetValue.innerHTML = "";
+      };
+      document
+        .querySelector(".start-btn")
+        .addEventListener("click", startTimer);
+
+      document
+        .querySelector(".reset-btn")
+        .addEventListener("click", resetTimer);
+
+      document.querySelector(".stop-btn").addEventListener("click", stopTimer);
+
+      document
+        .querySelector(".time-btn")
+        .addEventListener("click", showStopValue);
+
+      document
+        .querySelector(".clear-btn")
+        .addEventListener("click", clearTimeValue);
+    </script>
+  </body>
+</html>
